@@ -1,3 +1,4 @@
+# Set Up Mac for Data Science with Emacs
 
 ## Homebrew
 
