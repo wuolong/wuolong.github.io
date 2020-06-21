@@ -40,9 +40,9 @@ they cannot share notes in HTML.
 
 ## Github Blogs
 
-Then I found out that I can Github to keep notes in Markdown, edit them in either
+Then I found out that I can use Github to keep notes in Markdown, edit them in either
 Emacs or 1Writer, and make the resulted HTML available as web pages. This is very
-easy although the instructions were not very clear.
+easy although it is surprisingly hard to find a clear instruction.
 
 - Register a free account on Github.
 - Start a new repository, name it *username.github.io* which will be the URL 
