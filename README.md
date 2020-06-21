@@ -45,10 +45,11 @@ Emacs or 1Writer, and make the resulted HTML available as web pages. This is ver
 easy although it is surprisingly hard to find a clear instruction.
 
 - Register a free account on Github.
-- Start a new repository, name it *username.github.io* which will be the URL 
-  for the website. There is a choice of making the repository public or private, if
-  the former, the URL is visible by the public, although only "collaborators" can
-  edit the pages.
+- Start a new repository, name it *username.github.io* which will be the URL for the
+  website. 
+  - There is a choice of making the repository public or private. If the former, the
+    URL is visible by the public, although only "collaborators" can edit the pages.
+  - One can also pick a theme for the rendered HTML pages. 
 - Check yes to automatically generate a `README.md` file, which will be the starting
   webpage.
 - Checkout the repository to the computer. Note that as a public repository, a
@@ -56,8 +57,9 @@ password is not required to check out a repository, only when checking in.
 ```
 % git clone https://github.com/username/username.github.io
 ```
-- Now one can edit the Markdown files either on computer, and push the edits to the
-  server, or edit the files from a web browser. From the `README.md`, relative links
-  to other pages can be inserted via `[page name](filename.md)`.
+- Now one can edit the Markdown files either on computer and push the edits to the
+  server; or edit the files directly in a web browser. From the `README.md`, relative
+  links to other pages can be inserted via `[page name](filename.md)`.
+  
 
 [Set Mac for Data Science with Emacs](mac-emacs-data.md)
