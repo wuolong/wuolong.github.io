@@ -1,39 +1,63 @@
-## Welcome to GitHub Pages
+# Notebooks
 
-You can use the [editor on GitHub](https://github.com/wuolong/wuolong.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+This is my collection of notes and bookmarks.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## What to do with Notes 
 
-### Markdown
+There are many note-taking apps from OneNote, [Evernote](https://evernote.com),
+[Notability](https://www.gingerlabs.com) to simple ones like Google Keep or Apple
+Notes. But they all have some serious drawbacks:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- They are not [Emacs](https://www.gnu.org/software/emacs/).
+- Challenged by text formatting, either very messy or non-existent.
+- Proprietary file formats, not conduit to version control.
 
-```markdown
-Syntax highlighted code block
+For simple notes I use Apple Notes, which has the virtue of being always available in
+every device I use. Otherwise I prefer keeping notes in plain text format and editing
+with Emacs. But the latter does have the problem of not being available in mobile
+devices. In addition although not a social networking fanatic, I do like to share
+notes sometimes.
 
-# Header 1
-## Header 2
-### Header 3
+In the past I have used [Muse](https://www.gnu.org/software/emacs-muse/index.html),
+an Emacs authoring environment for notes, and publish as HTML to the web
+server. Later I switched to [Org-mode](https://orgmode.org).
 
-- Bulleted
-- List
+Org-mode is great as an all encompassing tool for keeping notes, maintaining todos,
+project planning, and integrate with Emacs Calendar. But since I use multiple devices
+including mobiles and work computers, and don't always access to Emacs, it is no
+longer a viable solution.
 
-1. Numbered
-2. List
+## Markdown
 
-**Bold** and _Italic_ and `Code` text
+So lately I have been using [Markdown](https://www.markdownguide.org) for keeping
+notes. There are some Markdown editors available on mobile devices,
+[Bear](https://bear.app) looks very nice but I use [1Writer](https://1writerapp.com)
+which does not require a subscription. The apps can access Markdown files stored on
+the cloud, such as iCloud Drive or Dropbox. 
 
-[Link](url) and ![Image](src)
+One last problem is that while these apps offer a "preview" of the notes in HTML,
+they cannot share notes in HTML.
+
+## Github Blogs
+
+Then I found out that I can Github to keep notes in Markdown, edit them in either
+Emacs or 1Writer, and make the resulted HTML available as web pages. This is very
+easy although the instructions were not very clear.
+
+- Register a free account on Github.
+- Start a new repository, name it *username.github.io* which will be the URL 
+  for the website. There is a choice of making the repository public or private, if
+  the former, the URL is visible by the public, although only "collaborators" can
+  edit the pages.
+- Check yes to automatically generate a `README.md` file, which will be the starting
+  webpage.
+- Checkout the repository to the computer. Note that as a public repository, a
+password is not required to check out a repository, only when checking in.
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/wuolong/wuolong.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+% git clone https://github.com/username/username.github.io
+```
+- Now one can edit the Markdown files either on computer, and push the edits to the
+  server, or edit the files from a web browser. From the `README.md`, relative links
+  to other pages can be inserted via `[page name](filename.md)`.
 
 [Set Mac for Data Science with Emacs](mac-emacs-data.md)
