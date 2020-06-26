@@ -1,3 +1,17 @@
+# Tweaking Xubuntu on Mac
+
+## Xubuntu
+
+Xubuntu is [ubuntu](https://ubuntu.com) (a derivative of
+[Debian](https://www.debian.org) Linux), with [Xfce](https://www.xfce.org) desktop
+environment.
+
+The Xfce Session Manager (`xfce4-session`) starts these apps:
+
+- Window Manager (`xfwm4`)
+- Desktop Manager (`xfdesktop`)
+- Settings Manager (`xfce4-settings`)
+- Panel (`xfce4-panel`)
 
 ## Retina Display
 
@@ -56,7 +70,6 @@ The shortcuts for switching between windows can be found in **Window Manager**.
 | Window operations menu | Alt+Space | 
 | Cycle windows          | Alt+`     |
 | Show desktop           | Super+D   |
-| 
 
 ## Chrome as Default Web Browser
 
@@ -67,5 +80,5 @@ with `dpkg` command.
 $ sudo dpkg -i xxxx.deb
 ```
 
-When Chrome is run the first, it will ask to set as the default and can be
-called upon by the shortcut *Super+W*.
+When Chrome runs the first time, it will ask to set as the default and can be called
+upon by the shortcut *Super+W*.
