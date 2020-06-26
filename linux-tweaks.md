@@ -17,7 +17,7 @@ The Xfce Session Manager (`xfce4-session`) starts these apps:
 
 In **Settings Manager** (accessible from main menu **Settings**)
 - **Appearance** > **Settings** > **Window Scaling** and select 2 as the
-  scaling factor.  
+  scaling factor.
 - **Window Manager** > **Style**: select `Default-xhdpi`, also increase the
   font for window titles to 16.
 - **Mouse and Keypad** > **Behavior**: increase the cursor size from the
