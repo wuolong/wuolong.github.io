@@ -61,7 +61,7 @@ Global shortcuts to launch applications can be set in **Settings Manager** >
 | App Finder    | Super+R   |
 | Terminal      | Super+T   |
 | Web Browser   | Super+W   |
-| emacs         | Super+3   |
+| Emacs         | Super+3   |
 
 The shortcuts for switching between windows can be found in **Window Manager**.
 
