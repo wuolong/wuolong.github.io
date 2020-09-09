@@ -8,7 +8,7 @@ version.
 
 ## Create a Bootable USB Drive with Linux 
 
-- Decide upon the flavor of Linux (I chose [Xubuntu](https://xubuntu.org)) and
+- Decide upon the flavor of Linux (e.g., [Xubuntu](https://xubuntu.org)) and
   download the disk image (ISO) file.
 - On a Mac, using Disk Utility to prepare a USB Drive with "MS DOS (FAT)" filesystem,
   and "GUID Partition Map".
@@ -63,3 +63,7 @@ temporarily disable SIP (System Integrity Protection) and re-enable it afterward
   the wrong partition. 
 - Double click to select "Use as: Ext4 journaling file system", set the Mount point
   to `/` and check the box to "Format the partition". Click OK.
+- Select the partition (`/dev/sda4`) for "Use as swap space".
+- In the **Device for boot loader installation** dropdown menu, select the same main
+  Linux partition (`/dev/sda3`)
+- **Install Now** and follow prompts to choose a time zone and create a user account!

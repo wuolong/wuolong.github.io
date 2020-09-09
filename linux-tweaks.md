@@ -23,6 +23,11 @@ In **Settings Manager** (accessible from main menu **Settings**)
 - **Mouse and Keypad** > **Behavior**: increase the cursor size from the
   default of 24 to 32.
 
+```shell
+$ xfconf-query -c xsettings -p /Gdk/WindowScalingFactor -s 2
+$ xfconf-query -c xfwm4 -p /general/theme -s Default-xhdpi
+```
+
 ## Map CapsLock to Control
 
 Edit `/etc/default/keyboard`and set

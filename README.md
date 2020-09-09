@@ -67,5 +67,7 @@ password is not required to check out a repository, only when checking in.
 - Github uses [Github Flavored Markdown](https://github.github.com/gfm/). From the
   `README.md`, relative links to other pages can be inserted via `[page
   name](filename.md)`.
+  
+## Links 
 
-[Set Mac for Data Science with Emacs](mac-emacs-data.md)
+- [Set Mac for Data Science with Emacs](mac-emacs-data.md)
