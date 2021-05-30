@@ -1,0 +1,295 @@
+---
+Time-stamp: "Sun May 30 12:25:54 EDT 2021 (nali@luthien.lan)"
+title: Statistics with Julia
+author: Na (Michael) Li, PhD.
+date: 27 Jun 2019
+---
+
+# Introduction
+
+Learning Julia follow the book [Statistics with Julia](https://statisticswithjulia.org).
+
+## Language Overview
+
+One peculiarity of Julia is that in a function call (e.g., `println()`) the left
+parenthesis must immediately follow the function name. Space is not allowed. Perhaps
+this is to make the code easier to parse for the just-in-time compiler?
+
+The semicolon `;` at the end suppresses the output. 
+
+One basic data type is `Array`. Note that in Julia, array index starts at 1.
+
+```julia
+println("There is more than one way to say hello:")
+helloArray = ["Hello", "G'day", "Shallom"];
+typeof(helloArray)
+for i in 1:3
+    println("\t", helloArray[i], " World!")
+end
+```
+
+Comprehension `[f(x) for x in A]` is a short hand for constructing a list or an
+array. The "dot" notation "broadcasts" the function to every element of the array.
+
+```julia
+println("\nThese squares are just perfect:")
+squares = [i^2 for i in 0:10]
+for s in squares
+    println("  ", s)
+end
+```
+
+```julia
+sqrt.(squares)
+```
+
+### Types and Methods
+
+More examples of comprehension.  Julia has a strong type system, which all variables
+have types (`Int64` or `Float64`) which helps the compiler. `UnitRange` is a special
+type of objects. The last line of the code creates a "tuple", which is immutable. The
+parentheses are optional.
+
+```julia
+array1 = [(2n+1)^2 for n in 1:5]
+array2 = [sqrt(i) for i in array1]
+array1 + array2
+println(typeof(1:5), ", ", typeof(array1), ", ", typeof(array2))
+tp1 = 1:5, array1, array2
+tp2 = (1:5, array1, array2)
+tp1[2]
+```
+
+```julia
+tp2[2] = 3                       # error
+```
+
+Julia functions are **generic** and have different *methods* depending on the type of
+the inputs using *multiple dispatch*.
+
+```julia
+methods(sqrt)
+```
+
+### Performance Timing
+
+Timing of codes using a macro (`@` construct).
+
+For the `mean()` function:
+```julia
+using Statistics
+```
+
+Compute 1 million times of the mean of 500 random numbers, where as the random numbers are generated one at a time.
+
+```julia
+@time begin
+    data = Float64[]
+    for _ in 1:10^6
+        group = Float64[]
+        for _ in 1:5 * 10^2
+            push!(group, rand())
+        end
+        push!(data, mean(group))
+    end
+    println("98% of the means lie in the estimated range: ",
+            (quantile(data, 0.01), quantile(data, 0.99)))
+end
+```
+
+Note that the function `push!()` use the `!` naming convention to indicate that the
+function modifies its argument.
+
+This is much faster to generate 500 random numbers at once.
+
+```julia
+@time begin
+    data = [mean(rand(5 * 10^2)) for _ in 1:10^6]
+    println("98% of the means lie in the estimated range: ",
+            (quantile(data, 0.01), quantile(data, 0.99)))
+end
+```
+
+### Variable Scope
+
+Sometimes it is necessary to use the `global` keyword. Note here a loop (`for` or
+`while`) has its own scope and the variable `i` is only available inside the loop.
+
+```julia
+data = [1, 2, 3];
+s = 0;
+beta, gamma = 2, 1;
+for i in 1:length(data)
+    print(i, " ")
+    global s;                   # may not be needed
+    s += beta * data[i];
+    data[i] *= -1;
+end
+println("\nSum of data in external scope: ", s)
+```
+
+A function has its scope.
+
+```julia
+function sumData(beta)
+    s = 1
+    for i in 1:length(data)
+        s += data[i] + beta     # local variable beta
+    end
+    return s
+end
+println("Sum of data in a function: ", sumData(beta / 2))
+@show s                         # this shows global s
+```
+
+## Crush Course
+
+### Bubble Sort
+
+Note the convention of including `!` in the function name that changes its
+argument. Also note that `1:n-1` is the same as `1:(n-1)`, i.e., `:` operator seems
+to always evaluate the last.
+
+```julia
+function bubbleSort!(a)
+    n = length(a)
+    for i in 1:n-1
+        for j in 1:n-i
+            if a[j] > a[j+1]
+                a[j], a[j+1] = a[j+1], a[j]
+            end
+        end
+    end
+    return a
+end
+data = [65, 51, 32, 12, 23, 84, 68, 1]
+typeof(data)
+bubbleSort!(data)
+```
+
+By default the function argument `a` is of `Array` type and it works for whatever
+elements in the array. In Julia, by default arrays are *passed by reference* so can
+be changed in place.
+
+```julia
+data2 = [65, 51, 32, 12, 23, 84, 68, 1.0]
+typeof(data2)
+bubbleSort!(data2)
+```
+
+### Roots of a Polynomial
+
+Here we define a function that returns a (polynomial) function. An argument, `a`,
+along with the *splat operator* `...` indicates that the function will accept a comma
+separated list of parameters of unspeciﬁed length.
+
+```julia
+function polynomialGenerator(a...)
+    n = length(a)-1
+    poly = function(x)
+        return sum([a[i+1] * x^i for i in 0:n])
+    end
+    return poly
+end
+polynomial = polynomialGenerator(1,3,-10);
+polynomial(3.23)
+```
+
+Functions can be passed as arguments to other functions. Here the `find_zeros()`
+function in `Roots` package is used to solve the roots.
+
+```julia
+using Roots
+zeroVals = find_zeros(polynomial,-10,10);
+println("Zeros of the function f(x): ", zeroVals)
+```
+
+### Markov Chain
+
+This example shows some linear algebra and simulations. In Julia, a matrix is defined
+in the same way as in Matlab.
+
+```julia
+P = [0.5 0.4 0.1;
+     0.3 0.2 0.5;
+     0.5 0.3 0.2];
+typeof(P)
+size(P)                         # dimension of the matrix
+length(P)
+```
+
+Basic linear algebra operators are defined in an intuitive fashion. The notation
+`[1,:]` takes the first row which is a one-dimensional array. Here the goal is to
+obtain the stationary distribution.
+
+$$\pi_i = \lim_{n\rightarrow \infty} [P^n]_{j,i}, \quad \text{for any} j.$$
+
+```julia
+piProb1 = (P^100)[1,:];
+```
+
+A second way is to solve the linear systems of equations:
+
+$$\pi P = \pi$$ 
+
+$$\sum_{i=1}^3 \pi_i = 1$$
+
+`vcat` is for *vertical concatenation* or adding rows.
+
+```julia
+using LinearAlgebra             # for I, and eigvecs()
+P'                              # transpose
+I                               # a special bulitin unit matrix
+ones(3)                         # a handy function
+A = vcat((P' - I)[1:2,:], ones(3)')
+b = [0 0 1]'
+piProb2 = A \ b;
+```
+
+Note that when an array is assigned to another, it is only by reference so both point
+to the same memory. To copy the values into a completely new array, use the `copy()`
+function
+
+```julia
+a = [1 2 3]
+b = a;
+c = copy(a);
+b[2] = 20;
+println("a = ", a)              # a is changed
+c[2] = 343;
+println("a = ", a)              # not changed
+println("c = ", c)
+```
+
+A third method makes use of the *Perron Frobenius Theorem* (?) which implies the
+eigenvector corresponding to the eigenvalue of maximal magnitude is proportional to
+$\pi$, we ﬁnd this eigenvector and normalize it by the sum of probabilities ($L_1$
+norm). Note that these functions return complex values that have to be casted to
+float.
+
+
+```julia
+eigVecs = eigvecs(copy(P'))
+highestVec = eigVecs[:, findmax(abs.(eigvals(P)))[2]]
+piProb3 = Array{Float64}(highestVec) / norm(highestVec, 1);
+```
+
+Lastly a simulation is used. 
+
+```julia
+using StatsBase                 # for sample(), weights()
+numInState = zeros(Int,3)
+state = 1;
+N = 10^6;
+for t in 1:N
+    numInState[state] += 1
+    global state = sample(1:3, weights(P[state,:]))
+end
+piProb4 = numInState / N;
+```
+
+Show all the results. Note how the vectors are combined into columns of a matrix.
+
+```julia
+[piProb1 piProb2 piProb3 piProb4]
+```
