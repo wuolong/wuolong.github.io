@@ -1,0 +1,38 @@
+---
+Time-stamp: "Sun May 30 16:44:39 EDT 2021 (nali@luthien.lan)"
+title: Julia Tutorial for Statisticians
+author: Na (Michael) Li, Ph.D.
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    keep_md: true
+lot: true
+params:
+  cache: TRUE
+  echo: TRUE
+---
+
+```{r knitr-options,cache=FALSE,echo=FALSE,message=FALSE}
+knitr::opts_chunk$set (autodep=TRUE,
+                       cache=params$cache,
+                       echo=params$echo,
+                       message=FALSE)
+```
+
+# Introduction
+
+[R](https://www.r-project.org) is the preferred statistical environment for many statisticians, while
+[Python](https://www.python.org) is popular for "data science", and is considered as "easier" since it is
+often taught as the first programming language in high schools.
+
+```{julia}
+a = [1, 3, 5]
+```
+
+```{r }
+a = c(1, 4, 7.0)
+```
