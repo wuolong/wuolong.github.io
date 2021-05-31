@@ -1,5 +1,5 @@
 ---
-Time-stamp: "Sun May 30 14:17:44 EDT 2021 (nali@luthien.lan)"
+Time-stamp: "Sun May 30 21:36:26 EDT 2021 (nali@luthien.lan)"
 title: Statistics with Julia
 author: Na (Michael) Li, PhD.
 weave_options:
@@ -9,50 +9,6 @@ weave_options:
 # Introduction
 
 Learning [Julia](https://julialang.org) follow the book [Statistics with Julia](https://statisticswithjulia.org).
-
-## Setup and Interface
-
-Instead of [Jupyter Notebook](https://github.com/JuliaLang/IJulia.jl), My preference is Emacs. Thankfully, with [ESS](https://ess.r-project.org)
-supporting Julia and [Polymode](https://polymode.github.io), it is seamless to run the codes
-interactively. With [Weave.jl](http://weavejl.mpastell.com/stable/), PDF or HTML output can be generated as
-needed. Note that Weave.jl puts all the output of each chunk together, instead of
-immediate following each line as in RMarkdown/knitr.
-
-```elisp
-(use-package julia-mode)
-(use-package ess
-  :mode (("\\.jl\\'" . ess-julia-mode)))
-(use-package poly-markdown
-  :ensure t
-  :mode (("\\.[jJ]md\\'" . poly-markdown-mode)))
-(add-to-list 'polymode-mode-name-override-alist '(julia . ess-julia))
-(require 'smart-compile) ;; https://github.com/zenitani/elisp/blob/master/smart-compile.el
-(global-set-key (kbd "<f8>") 'smart-compile)
-(add-to-list 'smart-compile-alist '("\\.[jJ]md\\'" . "julia -e 'using Weave; weave(\"%f\")'"))
-```
-
-## Julia vs R
-
-Julia was designed from the ground-up as a high-performance scientific computation
-language using just-in-time (JIT) compilation, with built-in arrays (vector, matrix).
-
-Coming from an R background, it is helpful to note some rather "peculiar" aspects of
-Julia that contributes to its high-performance:
-
--   Julia has rather strong type system. A function needs to know its argument types
-    for *multiple dispatch* to work. Sometimes explicit type conversion (e.g., from
-    integer to float) is required.
-    
--   Unlike R, arrays are always passed by reference to avoid memory allocation and
-    copying. 
-
--   In addition to functions, loops (`for` or `while`) define their own scopes.
-
--   A functions is not automatically "vectorized" if not defined to take an array as
-    argument. Instead the *dot operator* is needed to "broadcast" a function to each
-    element of an array.
-    
--   Julia also has built-in support for **macros** which can be convenient.
 
 Examples:
     

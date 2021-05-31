@@ -55,60 +55,60 @@ Julia that contributes to its high-performance:
 
 Examples:
     
-~~~~{.julia}
+```julia
 a = [1 3 4];
 b = [0.2 0.3 -0.3];
 a + b                           # this is vectorized
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 1×3 Array{Float64,2}:
  1.2  3.3  3.7
-~~~~
+```
 
 
 
 
 
 This does not work:
-~~~~{.julia}
+```julia
 try
     sin(a)
 catch
     println("sin() does not have a method for Array type")
 end
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 sin() does not have a method for Array type
-~~~~
+```
 
 
 
 
 
 This does:
-~~~~{.julia}
+```julia
 sin.(a)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 1×3 Array{Float64,2}:
  0.841471  0.14112  -0.756802
-~~~~
+```
 
 
 
-~~~~{.julia}
+```julia
 macro sayhello(name)
     return :( println("Hello, ", $name, "!") )
 end
 @sayhello "Charlie"
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 Hello, Charlie!
-~~~~
+```
 
 
 
@@ -125,21 +125,21 @@ The semicolon `;` at the end suppresses the output.
 One basic data type is `Array`. Note that in Julia, array index starts at 1 (just as
 R, Matlab or FORTRAN, but unlike Python or C).
 
-~~~~{.julia}
+```julia
 println("There is more than one way to say hello:")
 helloArray = ["Hello", "G'day", "Shallom"];
 typeof(helloArray)
 for i in 1:3
     println("\t", helloArray[i], " World!")
 end
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 There is more than one way to say hello:
 	Hello World!
 	G'day World!
 	Shallom World!
-~~~~
+```
 
 
 
@@ -148,15 +148,15 @@ There is more than one way to say hello:
 Comprehension `[f(x) for x in A]` is a short hand for constructing a list or an
 array. The "dot" notation "broadcasts" the function to every element of the array.
 
-~~~~{.julia}
+```julia
 println("\nThese squares are just perfect:")
 squares = [i^2 for i in 0:10]
 for s in squares
     println("  ", s)
 end
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 These squares are just perfect:
   0
   1
@@ -169,15 +169,15 @@ These squares are just perfect:
   64
   81
   100
-~~~~
+```
 
 
 
-~~~~{.julia}
+```julia
 sqrt.(squares)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 11-element Array{Float64,1}:
   0.0
   1.0
@@ -190,7 +190,7 @@ sqrt.(squares)
   8.0
   9.0
  10.0
-~~~~
+```
 
 
 
@@ -203,7 +203,7 @@ have types (`Int64` or `Float64`) which helps the compiler. `UnitRange` is a spe
 type of objects. The last line of the code creates a "tuple", which is immutable. The
 parentheses are optional.
 
-~~~~{.julia}
+```julia
 array1 = [(2n+1)^2 for n in 1:5]
 array2 = [sqrt(i) for i in array1]
 array1 + array2
@@ -211,9 +211,9 @@ println(typeof(1:5), ", ", typeof(array1), ", ", typeof(array2))
 tp1 = 1:5, array1, array2
 tp2 = (1:5, array1, array2)
 tp1[2]
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 UnitRange{Int64}, Array{Int64,1}, Array{Float64,1}
 5-element Array{Int64,1}:
    9
@@ -221,21 +221,21 @@ UnitRange{Int64}, Array{Int64,1}, Array{Float64,1}
   49
   81
  121
-~~~~
+```
 
 
 
-~~~~{.julia}
+```julia
 try
     tp2[2] = 3                       # error
 catch
     println("Cannot change elements of a tuple.")
 end
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 Cannot change elements of a tuple.
-~~~~
+```
 
 
 
@@ -244,11 +244,11 @@ Cannot change elements of a tuple.
 Julia functions are **generic** and have different *methods* depending on the type of
 the inputs using *multiple dispatch*.
 
-~~~~{.julia}
+```julia
 methods(sqrt)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 # 20 methods for generic function "sqrt":
 [1] sqrt(::Missing) in Base.Math at math.jl:1197
 [2] sqrt(a::Float16) in Base.Math at math.jl:1144
@@ -296,7 +296,7 @@ c/diagonal.jl:576
 [20] sqrt(J::LinearAlgebra.UniformScaling) in LinearAlgebra at /Application
 s/Julia-1.5.app/Contents/Resources/julia/share/julia/stdlib/v1.5/LinearAlge
 bra/src/uniformscaling.jl:139
-~~~~
+```
 
 
 
@@ -307,16 +307,16 @@ bra/src/uniformscaling.jl:139
 Timing of codes using a macro (`@` construct).
 
 For the `mean()` function:
-~~~~{.julia}
+```julia
 using Statistics
-~~~~~~~~~~~~~
+```
 
 
 
 
 Compute 1 million times of the mean of 500 random numbers, where as the random numbers are generated one at a time.
 
-~~~~{.julia}
+```julia
 @time begin
     data = Float64[]
     for _ in 1:10^6
@@ -329,13 +329,13 @@ Compute 1 million times of the mean of 500 random numbers, where as the random n
     println("98% of the means lie in the estimated range: ",
             (quantile(data, 0.01), quantile(data, 0.99)))
 end
-~~~~~~~~~~~~~
+```
 
-~~~~
-98% of the means lie in the estimated range: (0.46992989014932895, 0.530059
-0104271407)
-  6.442453 seconds (10.41 M allocations: 7.995 GiB, 8.60% gc time)
-~~~~
+```
+98% of the means lie in the estimated range: (0.4699788912464773, 0.5300008
+103434619)
+  6.639930 seconds (10.41 M allocations: 7.995 GiB, 9.34% gc time)
+```
 
 
 
@@ -346,19 +346,19 @@ function modifies its argument.
 
 This is much faster to generate 500 random numbers at once.
 
-~~~~{.julia}
+```julia
 @time begin
     data = [mean(rand(5 * 10^2)) for _ in 1:10^6]
     println("98% of the means lie in the estimated range: ",
             (quantile(data, 0.01), quantile(data, 0.99)))
 end
-~~~~~~~~~~~~~
+```
 
-~~~~
-98% of the means lie in the estimated range: (0.4700013445856619, 0.5300801
-76437303)
-  1.550398 seconds (1.12 M allocations: 3.903 GiB, 20.29% gc time)
-~~~~
+```
+98% of the means lie in the estimated range: (0.4699892752249119, 0.5300595
+91265033)
+  1.356763 seconds (1.12 M allocations: 3.903 GiB, 21.02% gc time)
+```
 
 
 
@@ -369,7 +369,7 @@ end
 Sometimes it is necessary to use the `global` keyword. Note here a loop (`for` or
 `while`) has its own scope and the variable `i` is only available inside the loop.
 
-~~~~{.julia}
+```julia
 data = [1, 2, 3];
 s = 0;
 beta, gamma = 2, 1;
@@ -380,12 +380,12 @@ for i in 1:length(data)
     data[i] *= -1;
 end
 println("\nSum of data in external scope: ", s)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 1 2 3 
 Sum of data in external scope: 12
-~~~~
+```
 
 
 
@@ -393,7 +393,7 @@ Sum of data in external scope: 12
 
 A function has its scope.
 
-~~~~{.julia}
+```julia
 function sumData(beta)
     s = 1
     for i in 1:length(data)
@@ -403,13 +403,13 @@ function sumData(beta)
 end
 println("Sum of data in a function: ", sumData(beta / 2))
 @show s                         # this shows global s
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 Sum of data in a function: -2.0
 s = 12
 12
-~~~~
+```
 
 
 
@@ -423,7 +423,7 @@ Note the convention of including `!` in the function name that changes its
 argument. Also note that `1:n-1` is the same as `1:(n-1)`, i.e., `:` operator seems
 to always evaluate the last.
 
-~~~~{.julia}
+```julia
 function bubbleSort!(a)
     n = length(a)
     for i in 1:n-1
@@ -438,9 +438,9 @@ end
 data = [65, 51, 32, 12, 23, 84, 68, 1]
 typeof(data)
 bubbleSort!(data)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 8-element Array{Int64,1}:
   1
  12
@@ -450,7 +450,7 @@ bubbleSort!(data)
  65
  68
  84
-~~~~
+```
 
 
 
@@ -460,13 +460,13 @@ By default the function argument `a` is of `Array` type and it works for whateve
 elements in the array. In Julia, by default arrays are *passed by reference* so can
 be changed in place.
 
-~~~~{.julia}
+```julia
 data2 = [65, 51, 32, 12, 23, 84, 68, 1.0]
 typeof(data2)
 bubbleSort!(data2)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 8-element Array{Float64,1}:
   1.0
  12.0
@@ -476,7 +476,7 @@ bubbleSort!(data2)
  65.0
  68.0
  84.0
-~~~~
+```
 
 
 
@@ -488,7 +488,7 @@ Here we define a function that returns a (polynomial) function. An argument, `a`
 along with the *splat operator* `...` indicates that the function will accept a comma
 separated list of parameters of unspeciﬁed length.
 
-~~~~{.julia}
+```julia
 function polynomialGenerator(a...)
     n = length(a)-1
     poly = function(x)
@@ -498,11 +498,11 @@ function polynomialGenerator(a...)
 end
 polynomial = polynomialGenerator(1,3,-10);
 polynomial(3.23)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 -93.63900000000001
-~~~~
+```
 
 
 
@@ -511,15 +511,15 @@ polynomial(3.23)
 Functions can be passed as arguments to other functions. Here the `find_zeros()`
 function in `Roots` package is used to solve the roots.
 
-~~~~{.julia}
+```julia
 using Roots
 zeroVals = find_zeros(polynomial,-10,10);
 println("Zeros of the function f(x): ", zeroVals)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 Zeros of the function f(x): [-0.19999999999999998, 0.5]
-~~~~
+```
 
 
 
@@ -530,18 +530,18 @@ Zeros of the function f(x): [-0.19999999999999998, 0.5]
 This example shows some linear algebra and simulations. In Julia, a matrix is defined
 in the same way as in Matlab.
 
-~~~~{.julia}
+```julia
 P = [0.5 0.4 0.1;
      0.3 0.2 0.5;
      0.5 0.3 0.2];
 typeof(P)
 size(P)                         # dimension of the matrix
 length(P)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 9
-~~~~
+```
 
 
 
@@ -553,9 +553,9 @@ obtain the stationary distribution.
 
 $$\pi_i = \lim_{n\rightarrow \infty} [P^n]_{j,i}, \quad \text{for any} j.$$
 
-~~~~{.julia}
+```julia
 piProb1 = (P^100)[1,:];
-~~~~~~~~~~~~~
+```
 
 
 
@@ -568,7 +568,7 @@ $$\sum_{i=1}^3 \pi_i = 1$$
 
 `vcat` is for *vertical concatenation* or adding rows.
 
-~~~~{.julia}
+```julia
 using LinearAlgebra             # for I, and eigvecs()
 P'                              # transpose
 I                               # a special bulitin unit matrix
@@ -576,7 +576,7 @@ ones(3)                         # a handy function
 A = vcat((P' - I)[1:2,:], ones(3)')
 b = [0 0 1]'
 piProb2 = A \ b;
-~~~~~~~~~~~~~
+```
 
 
 
@@ -585,7 +585,7 @@ Note that when an array is assigned to another, it is only by reference so both 
 to the same memory. To copy the values into a completely new array, use the `copy()`
 function
 
-~~~~{.julia}
+```julia
 a = [1 2 3]
 b = a;
 c = copy(a);
@@ -594,13 +594,13 @@ println("a = ", a)              # a is changed
 c[2] = 343;
 println("a = ", a)              # not changed
 println("c = ", c)
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 a = [1 20 3]
 a = [1 20 3]
 c = [1 343 3]
-~~~~
+```
 
 
 
@@ -613,18 +613,18 @@ norm). Note that these functions return complex values that have to be casted to
 float.
 
 
-~~~~{.julia}
+```julia
 eigVecs = eigvecs(copy(P'))
 highestVec = eigVecs[:, findmax(abs.(eigvals(P)))[2]]
 piProb3 = Array{Float64}(highestVec) / norm(highestVec, 1);
-~~~~~~~~~~~~~
+```
 
 
 
 
 Lastly a simulation is used. 
 
-~~~~{.julia}
+```julia
 using StatsBase                 # for sample(), weights()
 numInState = zeros(Int,3)
 state = 1;
@@ -634,22 +634,22 @@ for t in 1:N
     global state = sample(1:3, weights(P[state,:]))
 end
 piProb4 = numInState / N;
-~~~~~~~~~~~~~
+```
 
 
 
 
 Show all the results. Note how the vectors are combined into columns of a matrix.
 
-~~~~{.julia}
+```julia
 [piProb1 piProb2 piProb3 piProb4]
-~~~~~~~~~~~~~
+```
 
-~~~~
+```
 3×4 Array{Float64,2}:
- 0.4375  0.4375  0.4375  0.437591
- 0.3125  0.3125  0.3125  0.312844
- 0.25    0.25    0.25    0.249565
-~~~~
+ 0.4375  0.4375  0.4375  0.436676
+ 0.3125  0.3125  0.3125  0.313115
+ 0.25    0.25    0.25    0.250209
+```
 
 
