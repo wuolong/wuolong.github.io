@@ -655,25 +655,18 @@ div.title {text-align: center;}
         <div class="title">
           <h1 class="title">Julia Tutorial for Statisticians</h1>
           <h5>Na (Michael) Li, Ph.D.</h5>
-          <h5>2021-05-30</h5>
+          <h5>2021-05-31</h5>
         </div>
 
         <h1>Introduction</h1>
-<p><a href="https://www.r-project.org">R</a> is the preferred statistical environment for many statisticians, while <a href="https://www.python.org">Python</a> is popular for &quot;data science&quot;, and is considered as &quot;easier&quot; since it is often taught as the first programming language in high schools.</p>
+<p><a href="https://www.r-project.org">R</a> is the preferred statistical environment for many statisticians, while <a href="https://www.python.org">Python</a> is popular for &quot;data science&quot;. Since Python is often taught as the first programming language in high schools, it is considered as &quot;easier&quot; by many from a computer science background. Popular machine learning &#40;ML&#41; toolkits like <a href="https://www.tensorflow.org">tensorflow</a> and <a href="https://pytorch.org">PyTorch</a> come with Python API, even though they are implemented in C/C&#43;&#43;.</p>
 <p>Both R &#40;1993, its predecessor S was created in 1976&#41; and Python &#40;1991&#41; are fairly old. While modern features are added they are often implemented in a hodgepodge fashion. For instance R has not one but three class systems &#40;S3, S4, and R5&#41;. Python 3 made a major break from Python 2 in 2008 and cleaned up the class system. In addition, since Python started out as a general purpose language, its built-in &quot;array&quot; class is not suitable for scientific computation and has to rely on &quot;narray&quot; implementation in the <a href="https://numpy.org">NumPy</a> package.</p>
 <p>Julia on the other first appeared only in 2012. It was designed from the ground-up as a high-performance scientific computation language using just-in-time &#40;JIT&#41; compilation, with built-in arrays &#40;vector, matrix&#41;. It has grown rapidly in a short time and has a large set of packages for a variety of use scenarios.</p>
-<p>For a statistician with a long history of using R, I don&#39;t feel that Julia can replace R for day-to-day analysis. R still feels more natural for interactive use, with built-in data frames and statistical modeling language &#40;<code>y ~ x &#43; z</code>&#41;. Usually R is fast enough, and sometimes faster, due to Julia&#39;s &quot;overhead&quot; of always compiling code, even if it is only used once.</p>
-<p>However there are a few reasons to learn Julia &#40;besides purely for performance&#41;.</p>
-<ul>
-<li><p>Julia is modern and feels much &quot;cleaner&quot; than Python &#40;or R&#41;. It is simply fun to   use.</p>
-</li>
-<li><p>Julia has powerful <em>automatic differentiation</em> implementation &#40;as a <a href="https://juliacomputing.com/blog/2020/02/ad-xgboost/">first class   feature</a>&#41;.</p>
-</li>
-<li><p><a href="https://fluxml.ai">Flux</a> is a pure-Julia implementation of Machine Learning toolkit.</p>
-</li>
-</ul>
+<p>There are Julia evangelists who believe Julia, like many languages before, will be the &quot;one to rule them all&quot;.  For a statistician with a long history of using R, I don&#39;t feel that Julia can replace R for day-to-day analysis. R still feels more natural for interactive use, with built-in data frames and statistical modeling language &#40;<code>y ~ x &#43; z</code>&#41;. Usually R is fast enough since computationally intensive codes are implemented in C/C&#43;&#43;/FORTRAN anyway. In fact R often feels faster, due to Julia&#39;s overhead of frequent compiling-recompiling &quot;barely-ahead-of-time&quot;.</p>
+<p>Still I&#39;m curious to learn Julia and in particular would like to use <a href="https://fluxml.ai">Flux</a>, which is a pure-Julia implementation of Machine Learning toolkit. So here are my notes which also serve as a Julia tutorial for statisticians with a background in R.</p>
 <h2>Setup and Interface</h2>
-<p>Instead of <a href="https://github.com/JuliaLang/IJulia.jl">Jupyter Notebook</a> or other IDE &#40;<a href="https://junolab.org">Juno</a> or <a href="https://www.julia-vscode.org">VSCode</a>&#41;, my preference is Emacs. Thankfully, with <a href="https://ess.r-project.org">ESS</a> supporting Julia and <a href="https://polymode.github.io">Polymode</a>, it is seamless to run the codes interactively. With <a href="http://weavejl.mpastell.com/stable/">Weave.jl</a>, PDF or HTML output can be generated as needed. Note that Weave.jl puts all the output of each chunk together, instead of immediate following each line as in RMarkdown/knitr.</p>
+<p>Instead of <a href="https://github.com/JuliaLang/IJulia.jl">Jupyter Notebook</a>, <a href="https://juliapackages.com/p/pluto">Pluto</a> or other IDEs &#40;<a href="https://junolab.org">Juno</a> or <a href="https://www.julia-vscode.org">VSCode</a>&#41;, my preference is Emacs. Thankfully, with <a href="https://ess.r-project.org">ESS</a> supporting Julia and <a href="https://polymode.github.io">Polymode</a>, it is seamless to run the codes interactively. With <a href="http://weavejl.mpastell.com/stable/">Weave.jl</a>, PDF or HTML output can be generated as needed. Note that Weave.jl puts all the output of each chunk together, instead of immediate following each line as in RMarkdown/knitr.</p>
+<p>Here is the basic Emacs Lisp setup.</p>
 <pre><code class="language-elisp">&#40;use-package julia-mode&#41;
 &#40;use-package ess
   :mode &#40;&#40;&quot;\\.jl\\&#39;&quot; . ess-julia-mode&#41;&#41;&#41;
@@ -686,10 +679,10 @@ div.title {text-align: center;}
 &#40;global-set-key &#40;kbd &quot;&lt;f8&gt;&quot;&#41; &#39;smart-compile&#41;
 &#40;add-to-list &#39;smart-compile-alist
              &#39;&#40;&quot;\\.&#91;jJ&#93;md\\&#39;&quot; . &quot;julia -e &#39;using Weave; weave&#40;\&quot;&#37;f\&quot;&#41;&#39;&quot;&#41;&#41;</code></pre>
-<h2>Key Differences</h2>
+<h2>Key Differences with R</h2>
 <p>Coming from an R background, it is helpful to note some rather &quot;peculiar&quot; aspects of Julia that contributes to its high-performance:</p>
 <ul>
-<li><p>Julia has a rather strong type system &#40;<em>dynamic</em>, <em>nominative</em> and   <em>parametric</em>&#41;. A function needs to know its argument types for <em>multiple   dispatch</em> to work. Automatic type conversion that R users are used &#40;e.g., from   integer to float&#41; often does not work.</p>
+<li><p>Julia has a strong type system &#40;<em>dynamic</em>, <em>nominative</em> and <em>parametric</em>&#41;. The   key paradigm of <em>multiple dispatch</em> depends on a function knowing the types of   its arguments. Automatic type conversion that R programmers are used to &#40;e.g.,   from integer to float&#41; often does not work.</p>
 </li>
 <li><p>Unlike R, arrays are always passed by reference to avoid memory allocation and   copying. </p>
 </li>
@@ -1000,7 +993,7 @@ ERROR: DimensionMismatch&#40;&quot;dimensions must match: a has dims &#40;Base.O
         <div class="footer">
           <p>
             Published from <a href="juliar.jmd">juliar.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.8 on 2021-05-30.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.8 on 2021-05-31.
           </p>
         </div>
       </div>

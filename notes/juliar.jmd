@@ -1,5 +1,5 @@
 ---
-Time-stamp: "Sun May 30 22:23:32 EDT 2021 (nali@luthien.lan)"
+Time-stamp: "Mon May 31 09:22:12 EDT 2021 (nali@luthien.lan)"
 title: Julia Tutorial for Statisticians
 author: Na (Michael) Li, Ph.D.
 date: `j import Dates; Dates.Date(Dates.now())`
@@ -29,29 +29,27 @@ a high-performance scientific computation language using just-in-time (JIT)
 compilation, with built-in arrays (vector, matrix). It has grown rapidly in a short
 time and has a large set of packages for a variety of use scenarios.
 
-For a statistician with a long history of using R, I don't feel that Julia can
-replace R for day-to-day analysis. R still feels more natural for interactive use,
-with built-in data frames and statistical modeling language (`y ~ x + z`). Usually R
-is fast enough since computationally intensive codes are implemented in C/C++/FORTRAN
-anyway. Sometimes R even feels faster, due to Julia's "overhead" of always compiling
-code, even if it is only used once.
+There are Julia evangelists who believe Julia, like many languages before, will be
+the "one to rule them all".  For a statistician with a long history of using R, I
+don't feel that Julia can replace R for day-to-day analysis. R still feels more
+natural for interactive use, with built-in data frames and statistical modeling
+language (`y ~ x + z`). Usually R is fast enough since computationally intensive
+codes are implemented in C/C++/FORTRAN anyway. In fact R often feels faster, due to
+Julia's overhead of frequent compiling-recompiling "barely-ahead-of-time".
 
-However there are a few reasons to learn Julia (besides purely for performance).
-
--   Julia is modern and feels much "cleaner" than Python (or R). It is simply fun to
-    use.
--   Julia has powerful *automatic differentiation* implementation (as a [first class
-    feature](https://juliacomputing.com/blog/2020/02/ad-xgboost/)).
--   [Flux](https://fluxml.ai) is a pure-Julia implementation of Machine Learning toolkit.
+Still I'm curious to learn Julia and in particular would like to use [Flux](https://fluxml.ai), which
+is a pure-Julia implementation of Machine Learning toolkit. So here are my notes
+which also serve as a Julia tutorial for statisticians with a background in R.
 
 ## Setup and Interface
 
-Instead of [Jupyter Notebook](https://github.com/JuliaLang/IJulia.jl) or other IDE ([Juno](https://junolab.org) or [VSCode](https://www.julia-vscode.org)), my
-preference is Emacs. Thankfully, with [ESS](https://ess.r-project.org) supporting Julia and [Polymode](https://polymode.github.io), it
-is seamless to run the codes interactively. With [Weave.jl](http://weavejl.mpastell.com/stable/), PDF or HTML output
+Instead of [Jupyter Notebook](https://github.com/JuliaLang/IJulia.jl), [Pluto](https://juliapackages.com/p/pluto) or other IDEs ([Juno](https://junolab.org) or [VSCode](https://www.julia-vscode.org)),
+my preference is Emacs. Thankfully, with [ESS](https://ess.r-project.org) supporting Julia and [Polymode](https://polymode.github.io),
+it is seamless to run the codes interactively. With [Weave.jl](http://weavejl.mpastell.com/stable/), PDF or HTML output
 can be generated as needed. Note that Weave.jl puts all the output of each chunk
 together, instead of immediate following each line as in RMarkdown/knitr.
 
+Here is the basic Emacs Lisp setup.
 ```elisp
 (use-package julia-mode)
 (use-package ess
@@ -67,15 +65,15 @@ together, instead of immediate following each line as in RMarkdown/knitr.
              '("\\.[jJ]md\\'" . "julia -e 'using Weave; weave(\"%f\")'"))
 ```
 
-## Key Differences
+## Key Differences with R
 
 Coming from an R background, it is helpful to note some rather "peculiar" aspects of
 Julia that contributes to its high-performance:
 
--   Julia has a rather strong type system (*dynamic*, *nominative* and
-    *parametric*). A function needs to know its argument types for *multiple
-    dispatch* to work. Automatic type conversion that R users are used (e.g., from
-    integer to float) often does not work.
+-   Julia has a strong type system (*dynamic*, *nominative* and *parametric*). The
+    key paradigm of *multiple dispatch* depends on a function knowing the types of
+    its arguments. Automatic type conversion that R programmers are used to (e.g.,
+    from integer to float) often does not work.
     
 -   Unlike R, arrays are always passed by reference to avoid memory allocation and
     copying. 
