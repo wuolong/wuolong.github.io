@@ -655,7 +655,7 @@ div.title {text-align: center;}
         <div class="title">
           <h1 class="title">Julia Tutorial for Statisticians</h1>
           <h5>Na (Michael) Li, Ph.D.</h5>
-          <h5>2021-05-31</h5>
+          <h5>2021-06-01</h5>
         </div>
 
         <h1>Introduction</h1>
@@ -686,7 +686,7 @@ div.title {text-align: center;}
 </li>
 <li><p>Unlike R, arrays are always passed by reference to avoid memory allocation and   copying. </p>
 </li>
-<li><p>In addition to functions, loops &#40;<code>for</code> or <code>while</code>&#41; define their own scopes.</p>
+<li><p>In addition to macros and functions, loops &#40;<code>for</code> or <code>while</code>&#41;, <code>try</code>, <code>do</code>, and   <code>let</code> blocks introduce their own scopes.</p>
 </li>
 <li><p>A functions is not automatically &quot;vectorized&quot; if not defined to take an array as   argument. Instead the <em>dot operator</em> is needed to &quot;broadcast&quot; a function to each   element of an array.</p>
 </li>
@@ -798,16 +798,30 @@ ERROR: InexactError: Int64&#40;3.001&#41;
 
 
 <pre class='hljl'>
-<span class='hljl-n'>a</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-t'> </span><span class='hljl-oB'>&lt;</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-t'>
-</span><span class='hljl-nf'>typeof</span><span class='hljl-p'>(</span><span class='hljl-n'>a</span><span class='hljl-p'>)</span>
+<span class='hljl-n'>a</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-t'> </span><span class='hljl-oB'>&lt;</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span>
 </pre>
 
 
 <pre class="output">
-Bool
+true
 </pre>
 
 
+<pre><code>typeof&#40;a&#41;</code></pre>
+<p>Boolean operators include <code>&#33;</code> &#40;not&#41;, <code>&amp;&amp;</code> and <code>||</code>.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-oB'>!</span><span class='hljl-n'>a</span><span class='hljl-t'> </span><span class='hljl-oB'>&amp;&amp;</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-t'> </span><span class='hljl-oB'>&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>4</span>
+</pre>
+
+
+<pre class="output">
+false
+</pre>
+
+
+<h3>Special Values</h3>
 <p><a href="https://docs.julialang.org/en/v1/manual/missing/">Missing values</a>, similar to <code>NA</code> in R, are represented by special value <code>missing</code>. There is also a package <a href="https://github.com/JuliaData/Missings.jl">Missings.jl</a> that provide additional functionalities.</p>
 
 
@@ -817,7 +831,7 @@ Bool
 
 
 <pre class="output">
-1×2 Array&#123;Union&#123;Missing, Int64&#125;,2&#125;:
+1×2 Matrix&#123;Union&#123;Missing, Int64&#125;&#125;:
  1  missing
 </pre>
 
@@ -892,6 +906,105 @@ NaN
 </pre>
 
 
+<h3>Strings and Symbols</h3>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>str</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;hello, world&quot;</span>
+</pre>
+
+
+<pre class="output">
+&quot;hello, world&quot;
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>str</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+&#39;h&#39;: ASCII/Unicode U&#43;0068 &#40;category Ll: Letter, lowercase&#41;
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>str</span><span class='hljl-p'>[</span><span class='hljl-k'>end</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+&#39;d&#39;: ASCII/Unicode U&#43;0064 &#40;category Ll: Letter, lowercase&#41;
+</pre>
+
+
+<p>Interestingly, <code>*</code> operator &#40;instead of <code>&#43;</code>&#41; is used to concatenate strings.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>str</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;.</span><span class='hljl-se'>\n</span><span class='hljl-s'>&quot;</span>
+</pre>
+
+
+<pre class="output">
+&quot;hello, world.\n&quot;
+</pre>
+
+
+<p>Julia allows interpolation into string literals using <code>&#36;</code>, as in Perl.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-s'>&quot;</span><span class='hljl-si'>$str</span><span class='hljl-s'> 1 + 2 = </span><span class='hljl-si'>$</span><span class='hljl-p'>(</span><span class='hljl-ni'>1</span><span class='hljl-t'> </span><span class='hljl-oB'>+</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>)</span><span class='hljl-s'>&quot;</span>
+</pre>
+
+
+<pre class="output">
+&quot;hello, world 1 &#43; 2 &#61; 3&quot;
+</pre>
+
+
+<p>The <code>:</code> defines a symbol.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>a</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-sc'>:str</span><span class='hljl-t'>
+</span><span class='hljl-nf'>eval</span><span class='hljl-p'>(</span><span class='hljl-n'>a</span><span class='hljl-p'>)</span><span class='hljl-t'>                         </span><span class='hljl-cs'># evaluate to variable str</span>
+</pre>
+
+
+<pre class="output">
+&quot;hello, world&quot;
+</pre>
+
+
+<p>In Julia, regular expressions can be written using string literals prefixed with various identifiers beginning with <code>r</code>.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>re</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-so'>r&quot;^h[ea]l+o&quot;</span>
+</pre>
+
+
+<pre class="output">
+r&quot;^h&#91;ea&#93;l&#43;o&quot;
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>occursin</span><span class='hljl-p'>(</span><span class='hljl-n'>re</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>str</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+true
+</pre>
+
+
 <h2>Arrays</h2>
 <p>As a scientific computing language like R, but unlike Python, arrays &#40;vectors and matrices&#41; in Julia are built-in objects, with similar syntax as Matlab,</p>
 <p>A one-dimension vector:</p>
@@ -903,7 +1016,7 @@ NaN
 
 
 <pre class="output">
-3-element Array&#123;Int64,1&#125;:
+3-element Vector&#123;Int64&#125;:
  1
  3
  5
@@ -930,7 +1043,7 @@ NaN
 
 
 <pre class="output">
-1×3 Array&#123;Int64,2&#125;:
+1×3 Matrix&#123;Int64&#125;:
  2  3  4
 </pre>
 
@@ -981,10 +1094,183 @@ ERROR: DimensionMismatch&#40;&quot;dimensions must match: a has dims &#40;Base.O
 
 
 <pre class="output">
-3-element Array&#123;Int64,1&#125;:
+3-element Vector&#123;Int64&#125;:
  3
  6
  9
+</pre>
+
+
+<p>Matrix and higher dimensional arrays &#40;&quot;tensors&quot;&#41; can be defined in Matlab-like syntax:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>A</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>;</span><span class='hljl-t'>
+     </span><span class='hljl-ni'>4</span><span class='hljl-t'> </span><span class='hljl-ni'>5</span><span class='hljl-t'> </span><span class='hljl-ni'>6</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+2×3 Matrix&#123;Int64&#125;:
+ 1  3  3
+ 4  5  6
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>B</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>reshape</span><span class='hljl-p'>(</span><span class='hljl-nf'>collect</span><span class='hljl-p'>(</span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>27</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+3×3×3 Array&#123;Int64, 3&#125;:
+&#91;:, :, 1&#93; &#61;
+ 1  4  7
+ 2  5  8
+ 3  6  9
+
+&#91;:, :, 2&#93; &#61;
+ 10  13  16
+ 11  14  17
+ 12  15  18
+
+&#91;:, :, 3&#93; &#61;
+ 19  22  25
+ 20  23  26
+ 21  24  27
+</pre>
+
+
+<p>Arrays can be sliced:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>B</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>,</span><span class='hljl-oB'>:</span><span class='hljl-p'>,</span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>2</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+3×2 Matrix&#123;Int64&#125;:
+ 1  10
+ 4  13
+ 7  16
+</pre>
+
+
+<p><code>&#91;:&#93;</code> converts to a vector:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>B</span><span class='hljl-p'>[</span><span class='hljl-oB'>:</span><span class='hljl-p'>][</span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>5</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+5-element Vector&#123;Int64&#125;:
+ 1
+ 2
+ 3
+ 4
+ 5
+</pre>
+
+
+<p>Although an array can contain arbitrary mix of values, there is no exact equivalent of &quot;list&quot; from R. </p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>C</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-s'>&quot;Good Day&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-kc'>false</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+3-element Vector&#123;Any&#125;:
+      &quot;Good Day&quot;
+     3
+ false
+</pre>
+
+
+<p>A dictionary is similar to a named list.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>D</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Car&quot;</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>200</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;Train&quot;</span><span class='hljl-t'> </span><span class='hljl-oB'>=&gt;</span><span class='hljl-t'> </span><span class='hljl-ni'>300</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Dict&#123;String, Int64&#125; with 2 entries:
+  &quot;Train&quot; &#61;&gt; 300
+  &quot;Car&quot;   &#61;&gt; 200
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>D</span><span class='hljl-p'>[</span><span class='hljl-s'>&quot;Car&quot;</span><span class='hljl-p'>]</span>
+</pre>
+
+
+<pre class="output">
+200
+</pre>
+
+
+<p>More generally <code>list</code> so arbitrary, it is perhaps preferable for performance&#39;s sake to define explicit the data structure:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>struct</span><span class='hljl-t'> </span><span class='hljl-n'>Foo</span><span class='hljl-t'>
+    </span><span class='hljl-n'>bar</span><span class='hljl-t'>
+    </span><span class='hljl-n'>baz</span><span class='hljl-oB'>::</span><span class='hljl-n'>Int</span><span class='hljl-t'>
+    </span><span class='hljl-n'>qux</span><span class='hljl-oB'>::</span><span class='hljl-n'>Float64</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-n'>foo</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Foo</span><span class='hljl-p'>(</span><span class='hljl-s'>&quot;Hello, world.&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>23</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>1.5</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Main.##WeaveSandBox#257.Foo&#40;&quot;Hello, world.&quot;, 23, 1.5&#41;
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-nf'>typeof</span><span class='hljl-p'>(</span><span class='hljl-n'>foo</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Main.##WeaveSandBox#257.Foo
+</pre>
+
+
+<h2>Data Frames</h2>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>DataFrames</span><span class='hljl-t'>
+</span><span class='hljl-n'>df</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>DataFrame</span><span class='hljl-p'>(</span><span class='hljl-n'>A</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-ni'>4</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>B</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-s'>&quot;M&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;F&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;F&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;M&quot;</span><span class='hljl-p'>])</span>
+</pre>
+
+
+<pre class="julia-error">
+ERROR: ArgumentError: Package DataFrames not found in current path:
+- Run &#96;import Pkg; Pkg.add&#40;&quot;DataFrames&quot;&#41;&#96; to install the DataFrames package.
+
+</pre>
+
+
+
+<pre class='hljl'>
+<span class='hljl-n'>df</span><span class='hljl-oB'>.</span><span class='hljl-n'>B</span>
+</pre>
+
+
+<pre class="julia-error">
+ERROR: UndefVarError: df not defined
 </pre>
 
 
@@ -993,7 +1279,7 @@ ERROR: DimensionMismatch&#40;&quot;dimensions must match: a has dims &#40;Base.O
         <div class="footer">
           <p>
             Published from <a href="juliar.jmd">juliar.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.8 on 2021-05-31.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.8 on 2021-06-01.
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 ---
-Time-stamp: "Mon May 31 09:22:12 EDT 2021 (nali@luthien.lan)"
+Time-stamp: "Mon May 31 10:26:29 EDT 2021 (nali@luthien.lan)"
 title: Julia Tutorial for Statisticians
 author: Na (Michael) Li, Ph.D.
 date: `j import Dates; Dates.Date(Dates.now())`
@@ -78,7 +78,8 @@ Julia that contributes to its high-performance:
 -   Unlike R, arrays are always passed by reference to avoid memory allocation and
     copying. 
 
--   In addition to functions, loops (`for` or `while`) define their own scopes.
+-   In addition to macros and functions, loops (`for` or `while`), `try`, `do`, and
+    `let` blocks introduce their own scopes.
 
 -   A functions is not automatically "vectorized" if not defined to take an array as
     argument. Instead the *dot operator* is needed to "broadcast" a function to each
@@ -137,8 +138,18 @@ Int64(c)                        # does not work
 Boolean values are represented by `true` or `false`:
 ```julia
 a = 1 < 2
+```
+
+```
 typeof(a)
 ```
+
+Boolean operators include `!` (not), `&&` and `||`.
+```julia
+!a && 3 > 4
+```
+
+### Special Values
 
 [Missing values](https://docs.julialang.org/en/v1/manual/missing/), similar to `NA` in R, are represented by special value `missing`. There is also a package [Missings.jl](https://github.com/JuliaData/Missings.jl) that provide additional functionalities.
 
@@ -169,6 +180,47 @@ Other special values, such as `Inf`,
 or `NaN` (not a number).
 ```julia
 0 / 0                   
+```
+
+### Strings and Symbols
+
+```julia
+str = "hello, world"
+```
+
+```julia
+str[1]
+```
+
+```julia
+str[end]
+```
+
+Interestingly, `*` operator (instead of `+`) is used to concatenate strings.
+```julia
+str * ".\n"
+```
+
+Julia allows interpolation into string literals using `$`, as in Perl.
+```julia
+"$str 1 + 2 = $(1 + 2)"
+```
+
+The `:` defines a symbol.
+```julia
+a = :str
+eval(a)                         # evaluate to variable str
+```
+
+In Julia, regular expressions can be written using string literals prefixed with
+various identifiers beginning with `r`.
+
+```julia
+re = r"^h[ea]l+o"
+```
+
+```julia
+occursin(re, str)
 ```
 
 ## Arrays
@@ -207,4 +259,65 @@ a + b                           # error!
 But this does
 ```julia
 a + b[:]
+```
+
+Matrix and higher dimensional arrays ("tensors") can be defined in Matlab-like syntax:
+```julia
+A = [1 3 3;
+     4 5 6]
+```
+
+```julia
+B = reshape(collect(1:27), 3, 3, 3)
+```
+
+Arrays can be sliced:
+```julia
+B[1,:,1:2]
+```
+
+`[:]` converts to a vector:
+```julia
+B[:][1:5]
+```
+
+Although an array can contain arbitrary mix of values, there is no exact equivalent of "list" from R. 
+```julia
+C = ["Good Day", 3, false]
+```
+
+A dictionary is similar to a named list.
+```julia
+D = Dict("Car" => 200, "Train" => 300)
+```
+
+```julia
+D["Car"]
+```
+
+More generally `list` so arbitrary, it is perhaps preferable for performance's sake
+to define explicit the data structure:
+
+```julia
+struct Foo
+    bar
+    baz::Int
+    qux::Float64
+end
+foo = Foo("Hello, world.", 23, 1.5)
+```
+
+```julia
+typeof(foo)
+```
+
+## Data Frames
+
+```julia
+using DataFrames
+df = DataFrame(A = 1:4, B = ["M", "F", "F", "M"])
+```
+
+```julia
+df.B
 ```
