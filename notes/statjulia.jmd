@@ -1,5 +1,5 @@
 ---
-Time-stamp: "Sun May 30 21:36:26 EDT 2021 (nali@luthien.lan)"
+Time-stamp: "Wed Nov 10 15:22:24 EST 2021 (nali@ridcully.lan)"
 title: Statistics with Julia
 author: Na (Michael) Li, PhD.
 weave_options:
@@ -292,7 +292,7 @@ b = a;
 c = copy(a);
 b[2] = 20;
 println("a = ", a)              # a is changed
-c[2] = 343;
+kc[2] = 343;
 println("a = ", a)              # not changed
 println("c = ", c)
 ```
