@@ -5,7 +5,7 @@ Notes
 
 A free account allows unlimited public and private repositories with 500 MB of storage for public repositories. There is a limit on the number of commits but that's not a problem for personal use or small projects.
 
-Authentication using the GitHub CLI: 
+Authentication using the [GitHub CLI](https://docs.github.com/en/github-cli/github-cli/quickstart): 
 
 ``` shell
 brew install gh
