@@ -20,10 +20,11 @@ Bookmarks
 
 ## Cross-Platform 
 
-- [BitWarden](https://bitwarden.com): password manager, free for personal use. Not as essential as before with Apple's Passwords app but
-  still handy.
-- [Handbrake](https://handbrake.fr) (free): video converter.
-- [Libation](https://getlibation.com) (free): manage Audible books. 
-- [MediaInfo](https://mediaarea.net/en/MediaInfo): [open-source](https://github.com/MediaArea/MediaInfo) GUI to show metadata for video and audio files.
+- [BitWarden](https://bitwarden.com) (*open-source*): password manager, free for personal use. Not as essential as before with Apple's
+  Passwords app but still handy.
+- [Handbrake](https://handbrake.fr) (*open-source*): video converter.
+- [Libation](https://getlibation.com) (*open-source*): manage Audible books. 
+- [MediaInfo](https://mediaarea.net/en/MediaInfo) ([*open-source*](https://github.com/MediaArea/MediaInfo)): GUI to show metadata for video and audio files.
 - [Moneydance](https://moneydance.com): personal accounting.
 - [Obsidian](https://obsidian.md): Markdown editor, free when using 3rd-party sync solution.
+- [Zotero](https://www.zotero.org) (*open-source*): extensible reference and document manager, free with minimal cloud storage.
