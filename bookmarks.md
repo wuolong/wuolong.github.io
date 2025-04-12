@@ -14,7 +14,7 @@ Bookmarks
 - [Fission](https://rogueamoeba.com/fission/): audio file editor and converter.
 - [GrandPersective](https://grandperspectiv.sourceforge.net): visualize disk space usage, free from the website. 
 - [iTerm2](https://iterm2.com): open-source replacement for Apple's Terminal
-- [Nitro](https://www.gentlemencoders.com): affordable (not subscription based!) Photo editor, works with Apple Photos with RAW support.
+- [Nitro Photo](https://www.gentlemencoders.com): affordable (not subscription based!) Photo editor, works with Apple Photos with RAW support.
 - [Onyx](https://www.titanium-software.fr/en/onyx.html): system utility. 
 - [Tap Forms](https://www.tapforms.com): small personal database.
 
@@ -26,3 +26,4 @@ Bookmarks
 - [Libation](https://getlibation.com) (free): manage Audible books. 
 - [MediaInfo](https://mediaarea.net/en/MediaInfo): [open-source](https://github.com/MediaArea/MediaInfo) GUI to show metadata for video and audio files.
 - [Moneydance](https://moneydance.com): personal accounting.
+- [Obsidian](https://obsidian.md): Markdown editor, free when using 3rd-party sync solution.
