@@ -5,7 +5,7 @@ Bookmarks
 
 ## macOS Only
 
-- [Arctic](https://hedge.co/products/arctic): used to called more descriptively Final Cut Library Manager.
+- [Arctic](https://hedge.co/products/arctic): used to be called more descriptively Final Cut Library Manager.
 - [Audio Hijack](https://rogueamoeba.com/audiohijack/): record audio from the web.
 - [Bookpedia](https://www.bruji.com/bookpedia/): database for books - no longer under active development (not for sale anymore) but amazingly still
   works.
