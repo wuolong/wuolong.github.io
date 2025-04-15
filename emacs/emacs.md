@@ -54,8 +54,9 @@ Sometimes the OS competes with Emacs for the key bindings so we want to avoid co
 
 | Group     | Key     | Function                                                | Custom |
 |-----------|---------|---------------------------------------------------------|--------|
-| Basic     | M-=     | Count words (count-words-region)                        |        |
-|           | H-=     | Count words of the entire buffer (count-words)          |        |
+| Basic     | M-=     | Count words (count-words-region)                        | X      |
+|           | H-=     | Count words of the entire buffer (count-words)          | X      |
+|-----------|---------|---------------------------------------------------------|--------|
 | Bookmarks | C-x x m | Bookmark the file (bmkp-bookmark-set-confirm-overwrite) |        |
 |           | C-x j j | Jump to a bookmark (bookmark-jump)                      |        |
 |           | C-x r l | List/edit boomarks (bookmark-bmenu-list)                |        |
