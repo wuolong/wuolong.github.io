@@ -10,13 +10,13 @@ Emacs
 
 # Configuration
 
-Emacs 27 started to use the `~/.emacs.d` folder and `~/.emacs.d/init.el` config file instead of the old `~/.emacs` for
-configurations. This approach reduces the clutter under the home directory and makes it easier to manage these files
-with version control.
+Emacs 27 started to use the `~/.emacs.d` folder and `~/.emacs.d/init.el` init file instead of the old dotemacs
+(`~/.emacs`) for configurations. This approach reduces the clutter under the home directory and makes it easier to
+manage these files with version control. See [Emacs startup sequences](https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html) for a list of steps during startup.
 
-[Emacs startup sequences](https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html)
-
-- [early-init.el](./emacs-earlyinit.md)
+- [early-init.el](./early-init.md): Step 6, before the package system and GUI is initialized. The full init file is loaded as Step
+  14.
+- [Minibuffer](./minibuffer.md)
 
 # Keybinding Reference
 
