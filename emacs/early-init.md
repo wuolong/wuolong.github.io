@@ -1,10 +1,6 @@
 Emacs Configuration
 ====
 
-Emacs 27 started to use the `~/.emacs.d` folder and `~/.emacs.d/init.el` config file instead of the old
-`~/.emacs`. This approach reduces the clutter under the home directory and makes it easier to manage these files with
-version control. I put mine in a private repository on GitHub.
-
 # Early-Init 
 
 The `~/.emacs.d/early-init.el` is executed before the package system and GUI is initiated. 
