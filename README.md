@@ -7,7 +7,7 @@ Notes
 
 # Notes
 
-- [Emacs](./emacs.md): [init file](./emacs-init.md)
+- [Emacs](./emacs/emacs.md):
 
 # Github
 
