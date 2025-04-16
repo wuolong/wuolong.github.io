@@ -1,5 +1,6 @@
-Emacs 
-====
+---
+title: Emacs 
+---
 
 # Installation
 
