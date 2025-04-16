@@ -6,7 +6,8 @@ title: Emacs Packages
 
 Emacs's power lies in its infinite extensibility which involves the use of contributed "packages". `package.el` has become part of Emacs to make the process much easier.
 
-[MELPA](https://melpa.org/#/getting-started) is the Emacs repository that has all the bleeding edge stuff.
+Out of the box, GNU ELPA (Emacs Lisp Package Archive) is the default repository. [MELPA](https://melpa.org/#/getting-started) has more bleeding edge
+stuff.
 
 ```emacs-lisp
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
