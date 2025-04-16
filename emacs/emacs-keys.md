@@ -1,6 +1,5 @@
----
-title: Keybinding
----
+Keybinding
+====
 
 # Modifier keys
 
