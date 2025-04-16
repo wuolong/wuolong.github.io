@@ -17,6 +17,7 @@ manage these files with version control. See [Emacs startup sequences](https://w
 
 - [early-init.el](./early-init.md): this is loaded before the package system and GUI is initialized (step 6). 
 - [Basics](./init-basic.md): the basics
+- [Packages](./emacs-package.md): find, install and load packages
 - [Keybindings](./emacs-keys.md): Emacs is all about using the keyboard (instead of mouse)
 - [Minibuffer](./minibuffer.md): in lieu of annoying dialog windows
 
