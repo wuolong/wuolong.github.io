@@ -1,6 +1,5 @@
----
-title: Emacs Packages
----
+Emacs Packages
+====
 
 # Package.el
 
