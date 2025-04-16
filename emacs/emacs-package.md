@@ -21,7 +21,8 @@ stuff.
   - `x` to execute marked actions.
 - `M-x package-install` to install a package.
 - `M-x package-upgrade-all` to upgrade all packages.
-- `M-x package-autoremove` to delete obsoleted packages.
+- `M-x package-autoremove` to delete obsoleted packages. I found that this is not entirely reliable and sometimes
+  removes package still needed.
 
 All installed packages are automatically added to the custom-set variable `package-selected-packages`.
 
