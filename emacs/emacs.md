@@ -1,6 +1,5 @@
----
-title: Emacs 
----
+Emacs 
+=====
 
 # Installation
 
@@ -21,3 +20,7 @@ manage these files with version control. See [Emacs startup sequences](https://w
 - [Keybindings](./emacs-keys.md): Emacs is all about using the keyboard (instead of mouse)
 - [Minibuffer](./minibuffer.md): in lieu of annoying dialog windows
 
+# In-Depth Topics
+
+- [Emacs-Lisp](./emacs-lisp.md)
+- [Calc](./emacs-calc.md)
