@@ -5,7 +5,7 @@ Emacs Packages
 
 Emacs's power lies in its infinite extensibility which involves the use of contributed "packages". `package.el` has become part of Emacs to make the process much easier.
 
-Out of the box, GNU ELPA (Emacs Lisp Package Archive) is the default repository. [MELPA](https://melpa.org/#/getting-started) has more bleeding edge
+Out of the box, GNU [ELPA](https://www.emacswiki.org/emacs/ELPA) (Emacs Lisp Package Archive) is the default repository. [MELPA](https://melpa.org/#/getting-started) has more bleeding edge
 stuff.
 
 ```emacs-lisp
@@ -28,7 +28,7 @@ All installed packages are automatically added to the custom-set variable `packa
 
 # Use-Package
 
-This is a macro (distributed with Emacs since version 30) to set up package customization. 
+[use-package](https://github.com/jwiegley/use-package) is a macro (distributed with Emacs since version 30) to set up package customization. 
 
 - `:ensure` install a package if not present.
 - `:if` conditional loading
