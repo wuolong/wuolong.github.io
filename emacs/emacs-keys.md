@@ -65,17 +65,18 @@ When yanking,
 
 # Reference
 
-| Group     | Key     | Function                                                | Custom |
-|-----------|---------|---------------------------------------------------------|--------|
-| Basic     | M-=     | Count words (count-words-region)                        |        |
-|           | H-=     | Count words of the entire buffer (count-words)          | X      |
-|           | M-s o   | Shows lines match a regexp (occur)                      |        |
-|-----------|---------|---------------------------------------------------------|--------|
-| Bookmarks | C-x x m | Bookmark the file (bmkp-bookmark-set-confirm-overwrite) |        |
-|           | C-x j j | Jump to a bookmark (bookmark-jump)                      |        |
-|           | C-x r l | List/edit boomarks (bookmark-bmenu-list)                |        |
-|           | C-x r b | Jump to bookmark or create a new one (consult-bookmark) |        |
-|-----------|---------|---------------------------------------------------------|--------|
-| URL       | C-c .   | browse-url-at-point                                     | X      |
-| Dired     | C-x C-q | Edit file names directly (dired-toggle-read-only)       |        |
-|           |         |                                                         |        |
+| Group     | Key       | Function                                                | Custom |
+|-----------|-----------|---------------------------------------------------------|--------|
+| Basic     | M-=       | Count words (count-words-region)                        |        |
+|           | H-=       | Count words of the entire buffer (count-words)          | X      |
+|           | M-s o     | Shows lines match a regexp (occur)                      |        |
+|           | C-x 8 RET | Insert unicode characters and emojis (insert-char)      |        |
+|-----------|-----------|---------------------------------------------------------|--------|
+| Bookmarks | C-x x m   | Bookmark the file (bmkp-bookmark-set-confirm-overwrite) |        |
+|           | C-x j j   | Jump to a bookmark (bookmark-jump)                      |        |
+|           | C-x r l   | List/edit boomarks (bookmark-bmenu-list)                |        |
+|           | C-x r b   | Jump to bookmark or create a new one (consult-bookmark) |        |
+|-----------|-----------|---------------------------------------------------------|--------|
+| URL       | C-c .     | browse-url-at-point                                     | X      |
+| Dired     | C-x C-q   | Edit file names directly (dired-toggle-read-only)       |        |
+|           |           |                                                         |        |
