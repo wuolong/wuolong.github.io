@@ -1,5 +1,19 @@
-Mac Setup
+New Mac Setup
 ================
+
+# Settings
+
+- Trackpad - turn off "Natural scrolling"
+- Keyboard - Modifier Keys - Caps Lock Key - select "Control Key"
+- Keyboard - Function Keys - turn on "Using F1, F2, etc. keys as standard function keys"
+- Desktop & Dock - turn on "Automatically hide and show the dock", make the Size small, and Magnification larger.
+
+# Terminal and Zsh
+
+There is [iTerm2](https://iterm2.com) but the built-in Terminal.app is sufficient for me. 
+- Profile: "Pro" as default
+- Font: SF Mono Regular
+- On the 'Shell' tab, 'When the shell exits', select 'Close if the shell exited clearnly'.
 
 # SSH
 
