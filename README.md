@@ -8,6 +8,7 @@ Notes
 # Notes
 
 - [Emacs](./emacs/emacs.md)
+- [Setup New Mac](./setupmac.md)
 
 # Github
 
