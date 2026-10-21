@@ -10,12 +10,113 @@ New Mac Setup
 
 # Terminal and Zsh
 
+## Terminal 
+
 There is [iTerm2](https://iterm2.com) but the built-in Terminal.app is sufficient for me. 
 - Profile: "Pro" as default
 - Font: SF Mono Regular
 - On the 'Shell' tab, 'When the shell exits', select 'Close if the shell exited clearnly'.
 
-# SSH
+## zsh
+
+[Oh-my-zsh](https://ohmyz.sh) looks very fancy but I'll have to see if I need it.
+
+There are several startup files:
+
+### .zshenv
+
+This always executed first, keep it minimal. Mine is empty.
+
+### .zprofile
+
+This is executed second for login shells. Set environment variables including PATH here
+
+```shell
+# Always Use nvim (installed via homebrew)
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+# Recommended method vs adding to PATH manually
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Some local files (aider)
+export PATH=$HOME/.local/bin:$PATH
+```
+
+### .zshrc
+
+For interactive shells:
+
+```shell
+export PROMPT='%F{146}%1~ %f%# '
+export CLICOLOR=1
+export LSCOLORS="gxfxcxdxbxdeedabagacad"
+export LESSOPEN="|lesspipe.sh %s" 
+export LESS_ADVANCED_PREPROCESSOR=1
+
+# ZSH features
+# note the options are not case sensitive and _ is ignored
+setopt no_case_glob             # ignore case for wildcard matching
+setopt auto_cd                  # cd with directory name
+setopt correct
+
+# Alias
+alias l='ls -cF'
+alias la='ls -aF'
+alias ll='ls -talh'
+alias rm='rm -i'
+alias mv='mv -i'
+alias h='history'
+alias vim='nvim'
+alias vi='nvim'
+uname -a
+
+# no hints about environment variables
+export HOMEBREW_NO_ENV_HINTS=1
+```
+
+### .zlogin
+
+Also for login shells. I don't have it.
+
+## Homebrew
+
+Install [Homebrew](https://brew.sh) package manager:
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+## neovim
+
+A replacement for the built-in [vim](https://www.vim.org). This is easier to install directly from [neovim.io](https://neovim.io). It's not updated frequently and homebrew always installs a bunch of dependencies. 
+
+This does require some manual copying:
+```shell
+sudo cp ~/Downloads/nvim-macos-arm64/bin/nvim /usr/local/bin
+sudo cp -r ~/Downloads/nvim-macos-arm64/lib/nvim /usr/local/lib 
+sudo cp -r ~/Downloads/nvim-macos-arm64/share/icons /usr/local/share         
+sudo cp -r ~/Downloads/nvim-macos-arm64/share/man/man1/nvim.1 /usr/local/share/man/man1 
+sudo cp -r ~/Downloads/nvim-macos-arm64/share/nvim /usr/local/share 
+```
+
+MacOS blocks nvim by default, 
+1. Try running nvim once so macOS records the block.
+2. Open Apple menu → System Settings → Privacy & Security.
+3. Scroll to Security.
+4. Find the message saying nvim was blocked, then click Open Anyway.
+5. Try running nvim again, and this time there is an "Open Anyway" option.
+6. Authenticate with your password or Touch ID and confirm.
+
+## Pandoc
+
+## LaTeX
+
+# Essential Apps
+
+## Emacs
+
+## SSH
 
 To enable remote ssh login, turn on "Remote Login" in *Settings* - *Sharing*, under the *Advanced* section.
 
@@ -27,7 +128,7 @@ To use the key to log in remote server, delete the obsolete `authorized_keys` or
 ssh-copy-id -i ~/.ssh/id_ed25519.pub user@remote.server
 ```
 
-# Github Access
+## Github Access
 
 [Adding SSH public key to Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
@@ -57,21 +158,5 @@ Check out a repository:
 git clone git@github.com:username/repos.git repos
 ```
 
-# Essentials
 
-## Shell
 
-- [Oh-my-zsh](https://ohmyz.sh)
-- [iTerm2](https://iterm2.com)
-
-## Emacs
-
-## R
-
-## LaTeX
-
-## Python
-
-# Miscellaneous
-
-## Pandoc
