@@ -3,10 +3,10 @@ New Mac Setup
 
 # Settings
 
-- Trackpad - turn off "Natural scrolling"
-- Keyboard - Modifier Keys - Caps Lock Key - select "Control Key"
-- Keyboard - Function Keys - turn on "Using F1, F2, etc. keys as standard function keys"
-- Desktop & Dock - turn on "Automatically hide and show the dock", make the Size small, and Magnification larger.
+- Trackpad → turn off "Natural scrolling"
+- Keyboard → Modifier Keys → Caps Lock Key - select "Control Key"
+- Keyboard → Function Keys → turn on "Using F1, F2, etc. keys as standard function keys"
+- Desktop & Dock → turn on "Automatically hide and show the dock", make the Size small, and Magnification larger.
 
 # Terminal and Zsh
 
@@ -15,7 +15,7 @@ New Mac Setup
 There is [iTerm2](https://iterm2.com) but the built-in Terminal.app is sufficient for me. 
 - Profile: "Pro" as default
 - Font: SF Mono Regular
-- On the 'Shell' tab, 'When the shell exits', select 'Close if the shell exited clearnly'.
+- On the 'Shell' tab → 'When the shell exits', select 'Close if the shell exited clearnly'.
 
 ## zsh
 
@@ -32,11 +32,11 @@ This always executed first, keep it minimal. Mine is empty.
 This is executed second for login shells. Set environment variables including PATH here
 
 ```shell
-# Always Use nvim (installed via homebrew)
+# neovim 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# Recommended method vs adding to PATH manually
+# homebrew - recommended method vs adding to PATH manually
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Some local files (aider)
@@ -51,6 +51,7 @@ For interactive shells:
 export PROMPT='%F{146}%1~ %f%# '
 export CLICOLOR=1
 export LSCOLORS="gxfxcxdxbxdeedabagacad"
+# lesspipe
 export LESSOPEN="|lesspipe.sh %s" 
 export LESS_ADVANCED_PREPROCESSOR=1
 
@@ -108,9 +109,28 @@ MacOS blocks nvim by default,
 5. Try running nvim again, and this time there is an "Open Anyway" option.
 6. Authenticate with your password or Touch ID and confirm.
 
+## lesspipe
+
+[Lesspipe](https://github.com/wofr06/lesspipe) makes `less` more powerful. Again it's easier to install from the source, as homebrew also installs a version of Bash with it. It does come with configure scripts.
+
+```shell
+git clone https://github.com/wofr06/lesspipe.git lesspipe
+cd lesspipe
+./configure
+sudo make install
+```
+
 ## Pandoc
 
+Pandoc converts files from one markup format into another. This can be installed easily with homebrew.
+
+```shell
+brew install pandoc
+```
+
 ## LaTeX
+
+I prefer to install a full-blood version from [MacTex](https://tug.org/mactex/mactex-download.html). Afterwards, run the "Tex Live Utility" app once awhile to update the packages. 
 
 # Essential Apps
 
